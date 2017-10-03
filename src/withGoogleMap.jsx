@@ -56,7 +56,7 @@ export function withGoogleMap(BaseComponent) {
       const { map } = this.state
 
       // Affect map instance to GoogleMap props.
-      restProps.google = map
+      const props = Object.assign({}, restProps, { google: map })
 
       if (map) {
         return React.cloneElement(
@@ -65,7 +65,7 @@ export function withGoogleMap(BaseComponent) {
           React.cloneElement(mapElement, {
             ref: this.handleComponentMount,
           }),
-          <div>{factory(restProps)}</div>
+          <div>{factory(props)}</div>
         )
       } else {
         return React.cloneElement(
