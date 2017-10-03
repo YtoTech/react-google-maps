@@ -18,21 +18,11 @@ export function withGoogleMap(BaseComponent) {
       mapElement: PropTypes.node.isRequired,
     }
 
-    static childContextTypes = {
-      [MAP]: PropTypes.object,
-    }
-
     state = {
       map: null,
     }
 
     handleComponentMount = _.bind(this.handleComponentMount, this)
-
-    getChildContext() {
-      return {
-        [MAP]: this.state.map,
-      }
-    }
 
     componentWillMount() {
       const { containerElement, mapElement } = this.props
@@ -64,6 +54,9 @@ export function withGoogleMap(BaseComponent) {
       const { containerElement, mapElement, ...restProps } = this.props
 
       const { map } = this.state
+
+      // Affect map instance to GoogleMap props.
+      restProps.google = map
 
       if (map) {
         return React.cloneElement(
