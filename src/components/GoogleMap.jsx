@@ -11,6 +11,8 @@ import {
 
 import { MAP } from "../constants"
 
+// TODO this.context[MAP] now passed as a props (google).
+
 /**
  * @url https://developers.google.com/maps/documentation/javascript/3.exp/reference#Map
  */
@@ -209,7 +211,7 @@ export class Map extends React.PureComponent {
    * @public
    */
   fitBounds(...args) {
-    return this.context[MAP].fitBounds(...args)
+    return this.props.google.fitBounds(...args)
   }
 
   /**
@@ -217,7 +219,7 @@ export class Map extends React.PureComponent {
    * @public
    */
   panBy(...args) {
-    return this.context[MAP].panBy(...args)
+    return this.props.google.panBy(...args)
   }
 
   /**
@@ -225,7 +227,7 @@ export class Map extends React.PureComponent {
    * @public
    */
   panTo(...args) {
-    return this.context[MAP].panTo(...args)
+    return this.props.google.panTo(...args)
   }
 
   /**
@@ -233,27 +235,27 @@ export class Map extends React.PureComponent {
    * @public
    */
   panToBounds(...args) {
-    return this.context[MAP].panToBounds(...args)
+    return this.props.google.panToBounds(...args)
   }
 
   /*
    * @url https://developers.google.com/maps/documentation/javascript/3.exp/reference#Map
    */
-  constructor(props, context) {
-    super(props, context)
+  constructor(props) {
+    super(props)
     invariant(
-      !!this.context[MAP],
+      !!props.google,
       `Did you wrap <GoogleMap> component with withGoogleMap() HOC?`
     )
-    construct(GoogleMap.propTypes, updaterMap, this.props, this.context[MAP])
+    construct(GoogleMap.propTypes, updaterMap, this.props, props.google)
   }
 
   componentDidMount() {
-    componentDidMount(this, this.context[MAP], eventMap)
+    componentDidMount(this, this.props.google, eventMap)
   }
 
   componentDidUpdate(prevProps) {
-    componentDidUpdate(this, this.context[MAP], eventMap, updaterMap, prevProps)
+    componentDidUpdate(this, this.props.google, eventMap, updaterMap, prevProps)
   }
 
   componentWillUnmount() {
