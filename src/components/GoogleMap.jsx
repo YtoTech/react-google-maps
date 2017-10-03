@@ -194,13 +194,19 @@ export class Map extends React.PureComponent {
     onZoomChanged: PropTypes.func,
   }
 
-  static contextTypes = {
+  static childContextTypes = {
     [MAP]: PropTypes.object,
+  }
+
+  getChildContext() {
+    return {
+      [MAP]: this.props.google,
+    }
   }
 
   /**
    * @url https://developers.google.com/maps/documentation/javascript/3.exp/reference#Map
-   * @public 
+   * @public
    */
   fitBounds(...args) {
     return this.context[MAP].fitBounds(...args)
@@ -208,7 +214,7 @@ export class Map extends React.PureComponent {
 
   /**
    * @url https://developers.google.com/maps/documentation/javascript/3.exp/reference#Map
-   * @public 
+   * @public
    */
   panBy(...args) {
     return this.context[MAP].panBy(...args)
@@ -216,7 +222,7 @@ export class Map extends React.PureComponent {
 
   /**
    * @url https://developers.google.com/maps/documentation/javascript/3.exp/reference#Map
-   * @public 
+   * @public
    */
   panTo(...args) {
     return this.context[MAP].panTo(...args)
@@ -224,7 +230,7 @@ export class Map extends React.PureComponent {
 
   /**
    * @url https://developers.google.com/maps/documentation/javascript/3.exp/reference#Map
-   * @public 
+   * @public
    */
   panToBounds(...args) {
     return this.context[MAP].panToBounds(...args)
